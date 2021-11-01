@@ -1,0 +1,23 @@
+[Unit]
+Description=ZBX Slack Bot
+After=network.target
+
+[Service]
+Type=simple
+
+User={{app_user}}
+Group={{app_user}}
+
+Environment=WEBSOCKET_CLIENT_CA_BUNDLE={{app_root}}/current/DigiCertGlobalRootCA.crt
+Environment=ZBXSBOT_SLACK_TOKEN=
+Environment=ZBXSBOT_ZABBIX_USER=
+Environment=ZBXSBOT_ZABBIX_PASSWORD=
+Environment=ZBXSBOT_ZABBIX_HOST=
+WorkingDirectory={{app_root}}/current/
+ExecStart={{app_root}}/current/slackbot.py
+KillSignal=SIGINT
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
